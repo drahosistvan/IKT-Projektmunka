@@ -1,0 +1,40 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
+ */
+class OrderFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'number' => 'OR' . $this->faker->unique()->randomNumber(6),
+            'email' => $this->faker->safeEmail(),
+            'billing_name' => strtolower($this->faker->name()),
+            'billing_country' => strtolower($this->faker->countryCode()),
+            'billing_street' => $this->faker->streetAddress(),
+            'billing_city' => $this->faker->city(),
+            'billing_zip' => $this->faker->postcode(),
+            'shipping_name' => strtolower($this->faker->name()),
+            'shipping_country' => strtolower($this->faker->countryCode()),
+            'shipping_street' => $this->faker->streetAddress(),
+            'shipping_city' => $this->faker->city(),
+            'shipping_zip' => $this->faker->postcode(),
+            'total_price' => $this->faker->randomFloat(2, 100, 2000),
+            'status' => $this->faker->randomElement(['new', 'processing', 'shipped', 'delivered', 'cancelled']),
+            'shipping_price' => 2000,
+            'notes' => $this->faker->realText(100),
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-5 month', 'now'),
+        ];
+    }
+}

@@ -28,7 +28,7 @@ class OrderFactory extends Factory
             'shipping_street' => $this->faker->streetAddress(),
             'shipping_city' => $this->faker->city(),
             'shipping_zip' => $this->faker->postcode(),
-            'total_price' => $this->faker->randomFloat(2, 100, 2000),
+            'total_price' => rand(1000, 20000),
             'status' => $this->faker->randomElement(['new', 'processing', 'shipped', 'delivered', 'cancelled']),
             'shipping_price' => 2000,
             'notes' => $this->faker->realText(100),

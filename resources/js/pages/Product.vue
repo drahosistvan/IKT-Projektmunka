@@ -86,7 +86,7 @@ import WebshopLayout from '@/layouts/app/WebshopLayout.vue';
 import { CurrencyDollarIcon, GlobeAmericasIcon } from '@heroicons/vue/24/outline'
 import { Link } from '@inertiajs/vue3';
 import Product from '@/components/Product.vue';
-import { cart } from '@/Stores/cart';
+import { cart } from '@/stores/cart';
 
 const props = defineProps({
     product: Object,

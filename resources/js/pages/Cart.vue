@@ -117,7 +117,7 @@
 </template>
 
 <script setup>
-import { cart } from '@/Stores/cart';
+import { cart } from '@/stores/cart';
 import WebshopLayout from '@/layouts/app/WebshopLayout.vue';
 import { Link, useForm } from '@inertiajs/vue3';
 import { ChevronDownIcon } from '@heroicons/vue/16/solid';

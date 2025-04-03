@@ -406,7 +406,7 @@
 </template>
 
 <script setup>
-import { cart } from '@/Stores/cart';
+import { cart } from '@/stores/cart';
 import WebshopLayout from '@/layouts/app/WebshopLayout.vue';
 import { reactive, ref } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';

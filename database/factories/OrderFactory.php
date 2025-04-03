@@ -17,7 +17,6 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => 'OR' . $this->faker->unique()->randomNumber(6),
             'email' => $this->faker->safeEmail(),
             'billing_name' => strtolower($this->faker->name()),
             'billing_country' => strtolower($this->faker->countryCode()),

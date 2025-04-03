@@ -19,7 +19,7 @@ class OrderItemFactory extends Factory
     {
         return [
             'qty' => $this->faker->numberBetween(1, 10),
-            'unit_price' => $this->faker->randomFloat(2, 100, 500),
+            'unit_price' => rand(1000, 20000),
             'product_id' => Product::inRandomOrder()->first()->id,
         ];
     }

@@ -69,6 +69,8 @@
                                 <Link :href="route('register')" class="text-sm font-medium text-gray-700 hover:text-gray-800">Regisztráció</Link>
                             </div>
                             <div v-else class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                                <Link class="text-sm font-medium text-gray-700 hover:text-gray-800" :href="route('profile.edit')" as="button">Profilbeállítások</Link>
+                                <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
                                 <Link class="text-sm font-medium text-gray-700 hover:text-gray-800" method="post" :href="route('logout')" as="button">Kijelentkezés</Link>
                             </div>
 

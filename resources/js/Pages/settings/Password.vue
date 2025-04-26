@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
+import WebshopLayout from '@/layouts/app/WebshopLayout.vue';
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -51,57 +52,69 @@ const updatePassword = () => {
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Password settings" />
+    <WebshopLayout :breadcrumbs="breadcrumbItems">
+        <Head title="Jelszó módosítása" />
 
-        <SettingsLayout>
             <div class="space-y-6">
-                <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
 
+                <div class="px-4 pt-16 text-center sm:px-6 lg:px-8">
+                    <h1 class="text-4xl font-bold tracking-tight text-gray-900">Jelszó módosítása</h1>
+                    <p class="mx-auto mt-4 max-w-xl text-base text-gray-500">Győződjön meg róla, hogy fiókjához hosszú, véletlenszerű jelszót használ a biztonság érdekében.</p>
+                </div>
+
+                <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm pb-7">
                 <form @submit.prevent="updatePassword" class="space-y-6">
                     <div class="grid gap-2">
-                        <Label for="current_password">Current password</Label>
+                        <Label
+                            class="block text-sm/6 font-medium text-gray-900"
+                            for="current_password">Jelenlegi jelszó</Label>
                         <Input
                             id="current_password"
                             ref="currentPasswordInput"
                             v-model="form.current_password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="lock w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             autocomplete="current-password"
-                            placeholder="Current password"
+                            placeholder="Jelenlegi jelszó"
                         />
                         <InputError :message="form.errors.current_password" />
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="password">New password</Label>
+                        <Label
+                            class="block text-sm/6 font-medium text-gray-900"
+                            for="password">Új jelszó</Label>
                         <Input
                             id="password"
                             ref="passwordInput"
                             v-model="form.password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="lock w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             autocomplete="new-password"
-                            placeholder="New password"
+                            placeholder="Új jelszó"
                         />
                         <InputError :message="form.errors.password" />
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="password_confirmation">Confirm password</Label>
+                        <Label
+                            class="block text-sm/6 font-medium text-gray-900"
+                            for="password_confirmation">Új jelszó ismét</Label>
                         <Input
                             id="password_confirmation"
                             v-model="form.password_confirmation"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="lock w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             autocomplete="new-password"
-                            placeholder="Confirm password"
+                            placeholder="Új jelszó ismét"
                         />
                         <InputError :message="form.errors.password_confirmation" />
                     </div>
 
-                    <div class="flex items-center gap-4">
-                        <Button :disabled="form.processing">Save password</Button>
+                    <div class="">
+                        <Button
+                            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            :disabled="form.processing">Jelszó mentése</Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"
@@ -109,11 +122,11 @@ const updatePassword = () => {
                             leave-active-class="transition ease-in-out"
                             leave-to-class="opacity-0"
                         >
-                            <p v-show="form.recentlySuccessful" class="text-sm text-neutral-600">Saved.</p>
+                            <p v-show="form.recentlySuccessful" class="text-sm text-neutral-600">Jelszó sikeresen mentve.</p>
                         </Transition>
                     </div>
                 </form>
             </div>
-        </SettingsLayout>
-    </AppLayout>
+            </div>
+    </WebshopLayout>
 </template>

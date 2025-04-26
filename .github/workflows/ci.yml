@@ -53,9 +53,6 @@ jobs:
       - name: Install NPM dependencies
         run: npm ci
 
-      - name: List Inertia page components
-        run: ls -lR resources/js/pages
-
       - name: Build assets
         run: npm run build
 

@@ -33,6 +33,7 @@ return new class extends Migration
             $table->decimal('width', 12, 2)->nullable()->default(0.00)->unsigned();
             $table->decimal('depth', 12, 2)->nullable()->default(0.00)->unsigned();
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('product_categories');
         });
     }
 

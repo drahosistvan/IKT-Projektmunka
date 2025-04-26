@@ -34,4 +34,12 @@ class ProductCategory extends Model implements HasMedia
     {
         $query->where('is_visible', true);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

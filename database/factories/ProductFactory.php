@@ -47,7 +47,7 @@ class ProductFactory extends Factory
                     ->addMediaFromString(File::get(database_path('seeders/images/' . $product->slug . '.jpg')))
                     ->usingFileName($product->slug . '.jpg')
                     ->toMediaCollection('product-images');
-            } catch (UnreachableUrl $exception) {
+            } catch (\Exception $exception) {
                 return;
             }
         });

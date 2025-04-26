@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Administrator;
+use App\Models\Customer;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
@@ -9,7 +9,7 @@ test('login screen can be rendered', function () {
 });
 
 test('users can authenticate using the login screen', function () {
-    $user = Administrator::factory()->create();
+    $user = Customer::factory()->create();
 
     $response = $this->post('/login', [
         'email' => $user->email,
@@ -17,11 +17,11 @@ test('users can authenticate using the login screen', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+    $response->assertRedirect(route('home', absolute: false));
 });
 
 test('users can not authenticate with invalid password', function () {
-    $user = Administrator::factory()->create();
+    $user = Customer::factory()->create();
 
     $this->post('/login', [
         'email' => $user->email,
@@ -32,7 +32,7 @@ test('users can not authenticate with invalid password', function () {
 });
 
 test('users can logout', function () {
-    $user = Administrator::factory()->create();
+    $user = Customer::factory()->create();
 
     $response = $this->actingAs($user)->post('/logout');
 

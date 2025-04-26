@@ -6,7 +6,7 @@ use App\Enums\OrderStatus;
 use App\Filament\Actions\ResetPasswordAction;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
-use App\Filament\Resources\Shop\OrderResource\Widgets\OrderStats;
+use App\Filament\Resources\OrderResource\Widgets\OrderStats;
 use App\Models\Order;
 use App\Models\Product;
 use Filament\Forms\Components\Actions\Action;

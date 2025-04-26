@@ -26,7 +26,7 @@ class ProductCategorySeeder extends Seeder
                 'description' => 'Ez a(z) ' . $category . ' kategória leírása.',
                 'seo_title' => $category . ' kategória',
                 'seo_description' => 'Ez a(z) ' . $category . ' kategória leírása.',
-                'is_visible' => true,
+                'is_visible' => !($category == 'Bögrék'),
             ]);
         }
     }

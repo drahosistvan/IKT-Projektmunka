@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Administrator;
+use App\Models\Customer;
 
 test('confirm password screen can be rendered', function () {
-    $user = Administrator::factory()->create();
+    $user = Customer::factory()->create();
 
     $response = $this->actingAs($user)->get('/confirm-password');
 
@@ -11,7 +11,7 @@ test('confirm password screen can be rendered', function () {
 });
 
 test('password can be confirmed', function () {
-    $user = Administrator::factory()->create();
+    $user = Customer::factory()->create();
 
     $response = $this->actingAs($user)->post('/confirm-password', [
         'password' => 'password',
@@ -22,7 +22,7 @@ test('password can be confirmed', function () {
 });
 
 test('password is not confirmed with invalid password', function () {
-    $user = Administrator::factory()->create();
+    $user = Customer::factory()->create();
 
     $response = $this->actingAs($user)->post('/confirm-password', [
         'password' => 'wrong-password',

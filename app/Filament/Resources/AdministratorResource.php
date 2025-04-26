@@ -32,9 +32,11 @@ class AdministratorResource extends Resource
             ->schema([
                 Grid::make()->columns(1)->schema([
                     Forms\Components\TextInput::make('name')
+                        ->label('Név')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('email')
+                        ->label('E-mail cím')
                         ->required()
                         ->email()
                         ->maxLength(255),
@@ -47,9 +49,11 @@ class AdministratorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Név')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('E-mail cím')
                     ->searchable()
                     ->sortable(),
             ])

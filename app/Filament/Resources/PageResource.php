@@ -33,6 +33,7 @@ class PageResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\TextInput::make('title')
+                                    ->label('Név')
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
@@ -45,6 +46,7 @@ class PageResource extends Resource
                                     }),
 
                                 Forms\Components\TextInput::make('slug')
+                                    ->label('URL')
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
@@ -52,6 +54,7 @@ class PageResource extends Resource
                                     ->unique(Page::class, 'slug', ignoreRecord: true),
 
                                 Forms\Components\RichEditor::make('content')
+                                    ->label('Tartalom')
                                     ->columnSpan('full'),
                             ])
                             ->columns(2),
@@ -60,11 +63,10 @@ class PageResource extends Resource
 
                 Forms\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Status')
+                        Forms\Components\Section::make('Státusz')
                             ->schema([
                                 Forms\Components\Toggle::make('is_visible')
-                                    ->label('Visible')
-                                    ->helperText('This product will be hidden from all sales channels.')
+                                    ->label('Látható?')
                                     ->default(true),
                             ]),
                     ])
@@ -78,21 +80,14 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Name')
+                    ->label('Név')
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\IconColumn::make('is_visible')
-                    ->label('Visibility')
+                    ->label('Látható?')
                     ->sortable()
                     ->toggleable(),
-
-                Tables\Columns\TextColumn::make('published_at')
-                    ->label('Publish Date')
-                    ->date()
-                    ->sortable()
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
             ])
             ->filters([
                 //

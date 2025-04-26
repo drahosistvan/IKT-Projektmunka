@@ -32,14 +32,9 @@ class OrderStats extends BaseWidget
             ->count();
 
         return [
-            Stat::make('Orders', $this->getPageTableQuery()->count())
-                ->chart(
-                    $orderData
-                        ->map(fn (TrendValue $value) => $value->aggregate)
-                        ->toArray()
-                ),
-            Stat::make('Open orders', $this->getPageTableQuery()->whereIn('status', ['open', 'processing'])->count()),
-            Stat::make('Average price', number_format($this->getPageTableQuery()->avg('total_price'), 0)),
+            Stat::make('Rendelések', $this->getPageTableQuery()->count()),
+            Stat::make('Ebből nyitott', $this->getPageTableQuery()->whereIn('status', ['open', 'processing'])->count()),
+            Stat::make('Átlagár', number_format($this->getPageTableQuery()->avg('total_price'), 0)),
         ];
     }
 }

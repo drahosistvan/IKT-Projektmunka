@@ -38,11 +38,11 @@ class OrderResource extends Resource
                             ->schema(static::getDetailsFormSchema())
                             ->columns(2),
 
-                        Forms\Components\Section::make('Order items')
+                        Forms\Components\Section::make('Tételek')
                             ->headerActions([
                                 Action::make('reset')
-                                    ->modalHeading('Are you sure?')
-                                    ->modalDescription('All existing items will be removed from the order.')
+                                    ->modalHeading('Biztosan?')
+                                    ->modalDescription('Minden meglévő beállítás el fog veszni.')
                                     ->requiresConfirmation()
                                     ->color('danger')
                                     ->action(fn (Forms\Set $set) => $set('items', [])),
@@ -56,11 +56,11 @@ class OrderResource extends Resource
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
+                            ->label('Létrehozva')
                             ->content(fn (Order $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
+                            ->label('Módosítva')
                             ->content(fn (Order $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
@@ -73,33 +73,27 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label('Azon')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('billing_name')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->label('Státusz')
+                    ->searchable()
                     ->badge(),
                 Tables\Columns\TextColumn::make('total_price')
+                    ->label('Végösszeg')
                     ->searchable()
                     ->money('HUF')
                     ->sortable()
-                    ->summarize([
-                        Tables\Columns\Summarizers\Sum::make()
-                            ->money('HUF'),
-                    ]),
-                Tables\Columns\TextColumn::make('shipping_price')
-                    ->label('Shipping cost')
-                    ->searchable()
-                    ->money('HUF')
-                    ->sortable()
-                    ->toggleable()
                     ->summarize([
                         Tables\Columns\Summarizers\Sum::make()
                             ->money('HUF'),
                     ]),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Order Date')
+                    ->label('Létrehozva')
                     ->date('Y-m-d H:i:s')
                     ->toggleable()->sortable(),
             ])->defaultSort('created_at', 'desc')
@@ -139,7 +133,7 @@ class OrderResource extends Resource
     {
         return [
             Forms\Components\Select::make('shop_customer_id')
-                ->relationship('customer', 'name')
+                ->relationship('customer', 'name')->label('Vásárló')
                 ->searchable()
                 ->required()
                 ->createOptionForm([
@@ -148,7 +142,7 @@ class OrderResource extends Resource
                         ->maxLength(255),
 
                     Forms\Components\TextInput::make('email')
-                        ->label('Email address')
+                        ->label('E-mail cím')
                         ->required()
                         ->email()
                         ->maxLength(255)
@@ -160,17 +154,19 @@ class OrderResource extends Resource
                 ])
                 ->createOptionAction(function (Action $action) {
                     return $action
-                        ->modalHeading('Create customer')
-                        ->modalSubmitActionLabel('Create customer')
+                        ->modalHeading('Új vásárló létrehozása')
+                        ->modalSubmitActionLabel('Mentés')
                         ->modalWidth('lg');
                 }),
 
             Forms\Components\ToggleButtons::make('status')
+                ->label('Státusz')
                 ->inline()
                 ->options(OrderStatus::class)
                 ->required(),
 
             Forms\Components\MarkdownEditor::make('notes')
+                ->label('Megjegyzés')
                 ->columnSpan('full'),
         ];
     }
@@ -181,7 +177,7 @@ class OrderResource extends Resource
             ->relationship()
             ->schema([
                 Forms\Components\Select::make('product_id')
-                    ->label('Product')
+                    ->label('Termék')
                     ->options(Product::query()->pluck('name', 'id'))
                     ->required()
                     ->reactive()
@@ -194,7 +190,7 @@ class OrderResource extends Resource
                     ->searchable(),
 
                 Forms\Components\TextInput::make('qty')
-                    ->label('Quantity')
+                    ->label('Darab')
                     ->numeric()
                     ->default(1)
                     ->columnSpan([
@@ -203,7 +199,7 @@ class OrderResource extends Resource
                     ->required(),
 
                 Forms\Components\TextInput::make('unit_price')
-                    ->label('Unit Price')
+                    ->label('Egységár')
                     ->disabled()
                     ->dehydrated()
                     ->numeric()
@@ -214,7 +210,7 @@ class OrderResource extends Resource
             ])
             ->extraItemActions([
                 Action::make('openProduct')
-                    ->tooltip('Open product')
+                    ->tooltip('Megnyitás')
                     ->icon('heroicon-m-arrow-top-right-on-square')
                     ->url(function (array $arguments, Forms\Components\Repeater $component): ?string {
                         $itemData = $component->getRawItemState($arguments['item']);

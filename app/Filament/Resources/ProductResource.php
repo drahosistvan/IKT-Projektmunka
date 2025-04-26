@@ -33,6 +33,7 @@ class ProductResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\TextInput::make('name')
+                                    ->label('Név')
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
@@ -45,6 +46,7 @@ class ProductResource extends Resource
                                     }),
 
                                 Forms\Components\TextInput::make('slug')
+                                    ->label('URL')
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
@@ -52,11 +54,13 @@ class ProductResource extends Resource
                                     ->unique(Product::class, 'slug', ignoreRecord: true),
 
                                 Forms\Components\RichEditor::make('description')
+                                    ->label('Leírás')
                                     ->columnSpan('full'),
                             ])
                             ->columns(2),
 
                         Forms\Components\Section::make('Images')
+                            ->description('Képek feltöltése')
                             ->schema([
                                 SpatieMediaLibraryFileUpload::make('media')
                                     ->collection('product-images')
@@ -67,21 +71,23 @@ class ProductResource extends Resource
                             ->collapsible(),
 
                         Forms\Components\Section::make('Pricing')
+                            ->description('Árak és készlet')
                             ->schema([
                                 Forms\Components\TextInput::make('price')
+                                    ->label('Ár')
                                     ->numeric()
                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                     ->required(),
 
                                 Forms\Components\TextInput::make('old_price')
-                                    ->label('Compare at price')
+                                    ->label('Régi ár')
                                     ->numeric()
                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                     ->required(),
 
                                 Forms\Components\TextInput::make('cost')
-                                    ->label('Cost per item')
-                                    ->helperText('Customers won\'t see this price.')
+                                    ->label('Bekerülési költség')
+                                    ->helperText('A termék beszerzési ára')
                                     ->numeric()
                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                     ->required(),
@@ -90,19 +96,19 @@ class ProductResource extends Resource
                         Forms\Components\Section::make('Inventory')
                             ->schema([
                                 Forms\Components\TextInput::make('sku')
-                                    ->label('SKU (Stock Keeping Unit)')
+                                    ->label('SKU (Cikkszám)')
                                     ->unique(Product::class, 'sku', ignoreRecord: true)
                                     ->maxLength(255)
                                     ->required(),
 
                                 Forms\Components\TextInput::make('barcode')
-                                    ->label('Barcode (ISBN, UPC, GTIN, etc.)')
+                                    ->label('Vonalkód')
                                     ->unique(Product::class, 'barcode', ignoreRecord: true)
                                     ->maxLength(255)
                                     ->required(),
 
                                 Forms\Components\TextInput::make('qty')
-                                    ->label('Quantity')
+                                    ->label('Darab')
                                     ->numeric()
                                     ->rules(['integer', 'min:0'])
                                     ->required(),
@@ -115,10 +121,10 @@ class ProductResource extends Resource
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make('Status')
+                            ->description('Termék státusza')
                             ->schema([
                                 Forms\Components\Toggle::make('is_visible')
                                     ->label('Láthatóság')
-                                    ->helperText('This product will be hidden from all sales channels.')
                                     ->default(true),
 
                                 Forms\Components\Toggle::make('featured')
@@ -127,14 +133,15 @@ class ProductResource extends Resource
                                     ->default(false),
 
                                 Forms\Components\DatePicker::make('published_at')
-                                    ->label('Availability')
+                                    ->label('Megjelenés dátuma')
                                     ->default(now())
                                     ->required(),
                             ]),
 
-                        Forms\Components\Section::make('Associations')
+                        Forms\Components\Section::make('Kategória')
                             ->schema([
                                 Forms\Components\Select::make('category')
+                                    ->label('Kategória')
                                     ->relationship('category', 'name')
                                     ->required(),
                             ]),
@@ -149,16 +156,16 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('product-image')
-                    ->label('Image')
+                    ->label('Kép')
                     ->collection('product-images'),
 
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label('Név')
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\IconColumn::make('is_visible')
-                    ->label('Visibility')
+                    ->label('Láthatóság')
                     ->sortable()
                     ->toggleable(),
 
@@ -168,7 +175,7 @@ class ProductResource extends Resource
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('price')
-                    ->label('Price')
+                    ->label('Ár')
                     ->searchable()
                     ->sortable(),
 
@@ -179,13 +186,13 @@ class ProductResource extends Resource
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('qty')
-                    ->label('Quantity')
+                    ->label('Készlet')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('published_at')
-                    ->label('Publish Date')
+                    ->label('Megjelenés dátuma')
                     ->date()
                     ->sortable()
                     ->toggleable()

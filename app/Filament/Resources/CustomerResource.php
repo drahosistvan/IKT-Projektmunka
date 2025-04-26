@@ -33,44 +33,54 @@ class CustomerResource extends Resource
                     ->schema([
                         Forms\Components\Section::make('Kapcsolattartási adatok')->schema([
                             Forms\Components\TextInput::make('name')
+                                ->label('Név')
                                 ->maxLength(255)
                                 ->required(),
 
                             Forms\Components\TextInput::make('email')
-                                ->label('Email address')
+                                ->label('E-mail cím')
                                 ->required()
                                 ->email()
                                 ->maxLength(255)
                                 ->unique(ignoreRecord: true),
 
                             Forms\Components\TextInput::make('phone')
+                                ->label('Telefonszám')
                                 ->maxLength(255),
                         ])->columns(3),
                         Forms\Components\Section::make('Számlázási cím')->schema([
                             Forms\Components\TextInput::make('billing_street')
+                                ->label('Utca, házszám')
                                 ->maxLength(255),
 
                             Forms\Components\TextInput::make('billing_zip')
+                                ->label('Irányítószám')
                                 ->maxLength(255),
 
                             Forms\Components\TextInput::make('billing_city')
+                                ->label('Város')
                                 ->maxLength(255),
 
                             Forms\Components\Select::make('billing_country')
+                                ->label('Ország')
                                 ->options(Country::pluck('name', 'id')->toArray())
                                 ->nullable(),
                         ])->columns(2),
                         Forms\Components\Section::make('Szállítási cím')->schema([
                             Forms\Components\TextInput::make('shipping_street')
+                                ->label('Utca, házszám')
                                 ->maxLength(255),
 
                             Forms\Components\TextInput::make('shipping_city')
+                                ->label('Város')
                                 ->maxLength(255),
 
                             Forms\Components\TextInput::make('shipping_zip')
+                                ->label('Irányítószám')
                                 ->maxLength(255),
 
                             Forms\Components\Select::make('shipping_country')
+                                ->label('Ország')
                                 ->options(Country::pluck('name', 'id')->toArray())
                                 ->nullable(),
                         ])->columns(2),
@@ -83,11 +93,11 @@ class CustomerResource extends Resource
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
+                            ->label('Létrehozva')
                             ->content(fn (Customer $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
+                            ->label('Utolsó módosítás')
                             ->content(fn (Customer $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
@@ -101,10 +111,11 @@ class CustomerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Név')
                     ->searchable(isIndividual: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('E-mail cím')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

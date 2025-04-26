@@ -28,12 +28,12 @@ class ListOrders extends ListRecords
     public function getTabs(): array
     {
         return [
-            null => Tab::make('All'),
-            'new' => Tab::make()->query(fn ($query) => $query->where('status', 'new')),
-            'processing' => Tab::make()->query(fn ($query) => $query->where('status', 'processing')),
-            'shipped' => Tab::make()->query(fn ($query) => $query->where('status', 'shipped')),
-            'delivered' => Tab::make()->query(fn ($query) => $query->where('status', 'delivered')),
-            'cancelled' => Tab::make()->query(fn ($query) => $query->where('status', 'cancelled')),
+            null => Tab::make('Összes'),
+            'new' => Tab::make('Új')->query(fn ($query) => $query->where('status', 'new')),
+            'processing' => Tab::make('Feldolgozás alatt')->query(fn ($query) => $query->where('status', 'processing')),
+            'shipped' => Tab::make('Kiszállítva')->query(fn ($query) => $query->where('status', 'shipped')),
+            'delivered' => Tab::make('Kézbesítve')->query(fn ($query) => $query->where('status', 'delivered')),
+            'cancelled' => Tab::make('Törölt')->query(fn ($query) => $query->where('status', 'cancelled')),
         ];
     }
 }

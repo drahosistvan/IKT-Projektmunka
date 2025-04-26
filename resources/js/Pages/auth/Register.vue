@@ -92,13 +92,13 @@ const submit = () => {
 
                     <Button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" tabindex="5" :disabled="form.processing">
                         <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                        Create account
+                        Fiók létrehozása
                     </Button>
                 </div>
 
                 <div class="text-center text-sm text-muted-foreground">
-                    Already have an account?
-                    <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">Log in </TextLink>
+                    Már rendelkezik fiókkal?
+                    <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">Jelentkezzen be</TextLink>
                 </div>
             </form>
         </div>
